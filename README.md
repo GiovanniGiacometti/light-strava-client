@@ -4,11 +4,19 @@ A lightweight, hackable Python wrapper for the Strava API that simplifies authen
 
 ## 🚀 Getting started
 
-We use `UV` as package manager. You can install it following the [documentation](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer). Then, once you have cloned the repo, you can run the following command to create the environment and install the dependencies:
+The project is published on PyPI and can be installed using pip:
 
 ```bash
-make dev-sync
+pip install strava-client
 ```
+
+or using `uv`:
+
+```bash
+uv add strava-client
+```
+
+---
 
 ## 📝 Strava Application
 
@@ -63,7 +71,7 @@ Once the client is authenticated, you can start interacting with the API.
 
 Before making a request, the client checks if the access token is still valid. If not, it will automatically refresh it, using the refresh token, and save the new access token in the settings file.
 
-Currently, only one method is implemented, but it should be easy to extend the class to include more functionalities. The method is `get_activities`,which allows you to retrieve the activities of the authenticated user. You can use it as follows:
+Currently, only one method is implemented, `get_activities`, which allows you to retrieve the activities of the authenticated user. You can use it as follows:
 
 ```python
 # Get all activities
@@ -76,8 +84,20 @@ for activity in activities:
 
 Activities will be a list of `StravaActivity` objects, which contain the information of the activities. You can find the definition of the model in the `strava_client/models/api.py` file.
 
+If you need other endpoints, let me know and I will be happy to implement them! Or you can do that yourself, following the instructions in the next section.
+
+## Development
+
+We use `UV` as package manager. You can install it following the [documentation](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer). Then, once you have cloned the repo, you can run the following command to create the environment and install the dependencies:
+
+```bash
+make dev-sync
+```
+
 ### 🛠️ Extending the Client
 The client is designed to be easily extended. You can add new API endpoints by first creating the appropriate Pydantic model for the response and then adding a new method to the `StravaClient` class. You can leverage the existing authentication and request infrastructure to streamline the process.
+
+---
 
 ## Disclaimer
 

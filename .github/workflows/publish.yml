@@ -42,3 +42,5 @@ jobs:
       - name: 📢 Publish to PyPI
         run: uv publish
 
+      - name: 👌 Check upload
+        run: uv run --with strava-client --no-project -- python -c "import strava_client"
