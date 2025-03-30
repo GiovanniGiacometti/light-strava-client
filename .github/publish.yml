@@ -1,10 +1,17 @@
-name: Main Lint Test
+name: Publish
+
+# This workflow is triggered on every tag push and can also be triggered manually.
 on:
   push:
-    branches: main
+    tags:
+      - '*'
+  workflow_dispatch:
+
+# First, checks out repository, installs dependencies, and runs tests.
+# Then, builds the package and publishes it to PyPI.
 
 jobs:
-  main-lint-test:
+  publish:
     runs-on: ubuntu-latest
     environment: pypi
 
@@ -26,12 +33,12 @@ jobs:
       - name: 💅 🧪 Format, Lint and test
         run: make validate
 
-      - name: 📦 Build distribution
-        run: make build
+      - name: 🏗️ Build distribution
+        run: uv build
 
-      - name: Set PYPI token as env variable for UV
+      - name: 📩 Set PYPI token as env variable for UV
         run: echo "UV_PUBLISH_TOKEN=${{ secrets.PYPI_TOKEN }}" >> $GITHUB_ENV
 
-      - name: 📦 Publish to PyPI
-        run: make publish
+      - name: 📢 Publish to PyPI
+        run: uv publish
 

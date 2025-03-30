@@ -14,8 +14,8 @@ test:
 
 validate: lint test
 
-build:
-	uv build
-
 publish:
-	uv publish
+	# The __version__ variable in strava_client/__init__.py must be updated manually as of now.
+	# The build tool retrieves it from there.
+	git tag -a v$(VERSION_TAG) -m "Release v$(VERSION_TAG)"
+	git push origin v$(VERSION_TAG)
