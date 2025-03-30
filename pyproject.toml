@@ -1,23 +1,47 @@
 [project]
 name = "strava-client"
-version = "0.1.0"
-description = "Add your description here"
+dynamic = ["version"]
+description = "A lightweight Strava API client for Python."
 readme = "README.md"
-requires-python = ">=3.10"
-classifiers = [
-    "License :: OSI Approved :: Apache Software License"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+  { name="Giovanni Giacometti"},
 ]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["python", "strava", "api", "client"]
+
+
 dependencies = [
     "pydantic-settings>=2.7.0",
     "pydantic>=2.10.4",
     "requests>=2.32.3",
-    "polars>=1.19.0",
 ]
+
+
+[project.urls]
+"Repository" = "https://github.com/GiovanniGiacometti/light-strava-client"
 
 [dependency-groups]
 dev = [
     "mypy>=1.14.0",
+    "pytest>=8.3.5",
     "ruff>=0.8.4",
     "types-requests>=2.32.0.20241016",
 ]
 
+examples = [
+    "polars>=1.26.0",
+]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/strava_client/__init__.py"
