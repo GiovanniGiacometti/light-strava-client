@@ -4,7 +4,7 @@ name: Publish
 on:
   push:
     tags:
-      - '*'
+      - "v[0-9]+.[0-9]+.[0-9]+*"
   workflow_dispatch:
 
 # First, checks out repository, installs dependencies, and runs tests.
@@ -43,4 +43,8 @@ jobs:
         run: uv publish
 
       - name: 👌 Check upload
-        run: uv run --with strava-client --no-project -- python -c "import strava_client"
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG:1}
+          echo "Version: $VERSION"
+          uv run --with strava-client==$VERSION --no-project -- python -c "import strava_client"
